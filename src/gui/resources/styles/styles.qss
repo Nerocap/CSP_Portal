@@ -1,0 +1,25 @@
+QMainWindow{
+    background-color:       #96a68f;
+}
+
+QPushButton:hover{
+    border: 5px solid black;
+}
+QPushButton#btn_id1:!checked{
+    background-color:       #96a68f;
+}
+QWidget#main_widget{
+    background-color: green;
+}
+QWidget#left_area{
+    background-color: red;
+    border: 3px solid black;
+    margin: 50px;
+}
+QWidget#right_area{
+    background-color: red;
+    border: 3px solid black;
+}
+QGroupBox{
+    border: 3px solid black;
+}

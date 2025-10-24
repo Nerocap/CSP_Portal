@@ -1,0 +1,1 @@
+<a href="https://www.flaticon.com/de/kostenlose-icons/stecker-und-buchse" title="stecker und buchse Icons">Stecker und buchse Icons erstellt von berkahicon - Flaticon</a>

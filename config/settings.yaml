@@ -1,0 +1,13 @@
+app:
+  window_title: "Lineareinheit Steuerung"
+  theme: "dark"
+
+hardware:
+  port: "COM3"         # Serieller Port (Windows)
+  baudrate: 115200
+  timeout: 1.0
+
+motion:
+  max_speed: 100       # mm/s
+  acceleration: 20     # mm/s^2
+  home_position: 0
