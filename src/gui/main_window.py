@@ -5,10 +5,6 @@ from PyQt6.QtWidgets import QMainWindow, QApplication, QToolBar, QStatusBar, QTo
 from src import __version__
 from src.controller.controller import MfiController, XpsController
 from src.gui.resources.paths import ImgPath, FilePath
-from PyQt6.QtCore import QFile, QTextStream
-import sys
-import requests
-
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -67,23 +63,29 @@ class MainWindow(QMainWindow):
         if self.btn_id1.isChecked():
             status_mfi = self.mfi_controller.device_status
             status_xps = self.xps_controller.device_status
-            self.btn_id1.setIcon(QIcon(ImgPath.CONNECT_DEVICES_ON_ICON))
-            self.btn_id2.setIcon(QIcon(ImgPath.SETTINGS_ENABLE))
+
+            self.btn_id1.setIcon(QIcon(ImgPath.ENABLE_DEVICES))
+            self.btn_id2.setIcon(QIcon(ImgPath.SETTINGS_OFF))
             self.btn_id2.setEnabled(True)
 
-            self.information.layout().addWidget(QLabel(f'Name: {status_mfi.json()[0]['name']}'))
-            self.information.layout().addWidget(QLabel(f'Serial ID: {status_mfi.json()[0]['serial_id']}'))
-            self.information.layout().addWidget(QLabel(f'Sensor type: {status_mfi.json()[0]['sensor_type']}'))
+            try:
+                if status_mfi is None:
+                    self.statusBar.showMessage('No MFI detected')
 
-            if status_mfi.status_code == 200:
-                self.statusBar.showMessage(f'Device MFI online')
-            else:
-                self.statusBar.showMessage(f'Device MFI offline')
+                elif status_mfi:
+
+                    self.information.layout().addWidget(QLabel(f'Name: {status_mfi.json()[0]['name']}'))
+                    self.information.layout().addWidget(QLabel(f'Serial ID: {status_mfi.json()[0]['serial_id']}'))
+                    self.information.layout().addWidget(QLabel(f'Sensor type: {status_mfi.json()[0]['sensor_type']}'))
+
+                    self.statusBar.message('MFI detected')
+            except Exception as err:
+                print(f'Error: {err}')
 
         elif not self.btn_id1.isChecked():
             self.statusBar.showMessage(f'Device offline')
-            self.btn_id1.setIcon(QIcon(ImgPath.CONNECT_DEVICES_OFF_ICON))
-            self.btn_id2.setIcon(QIcon(ImgPath.SETTINGS_DISABLE))
+            self.btn_id1.setIcon(QIcon(ImgPath.DISABLE_DEVICES))
+            self.btn_id2.setIcon(QIcon(ImgPath.SETTINGS_OFF))
             self.btn_id2.setEnabled(False)
 
     def open_settings(self):
@@ -91,7 +93,7 @@ class MainWindow(QMainWindow):
         if self.btn_id2.isChecked():
             self.btn_id2.setIcon(QIcon(ImgPath.SETTINGS_ON))
         elif not self.btn_id2.isChecked():
-            self.btn_id2.setIcon(QIcon(ImgPath.SETTINGS_ENABLE))
+            self.btn_id2.setIcon(QIcon(ImgPath.SETTINGS_OFF))
 
     def create_toolbar(self):
         # add toolbar
@@ -99,8 +101,8 @@ class MainWindow(QMainWindow):
         self.addToolBar(toolbar)
 
         # create toolbar-buttons
-        self.btn_id1: ToolBarButton = ToolBarButton('btn_id1', ImgPath.CONNECT_DEVICES_OFF_ICON, self.on_check_status)
-        self.btn_id2: ToolBarButton = ToolBarButton('btn_id2', ImgPath.SETTINGS_ENABLE, self.open_settings)
+        self.btn_id1: ToolBarButton = ToolBarButton('btn_id1', ImgPath.DISABLE_DEVICES, self.on_check_status)
+        self.btn_id2: ToolBarButton = ToolBarButton('btn_id2', ImgPath.SETTINGS_OFF, self.open_settings)
 
         self.btn_id1.setEnabled(True)
 

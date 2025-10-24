@@ -7,11 +7,14 @@ BASE_DIR = os.path.dirname(__file__)  # path zu resources/
 class ImgPath:
     ICON_DIR = os.path.join(BASE_DIR, "icons")
 
-    CONNECT_DEVICES_ON_ICON = os.path.join(ICON_DIR, "connect_on_id1.png")
-    CONNECT_DEVICES_OFF_ICON = os.path.join(ICON_DIR, "connect_off_id1.png")
-    SETTINGS_DISABLE = os.path.join(ICON_DIR, "list_disable_id1.png")
-    SETTINGS_ENABLE = os.path.join(ICON_DIR, "list_enable_id1.png")
-    SETTINGS_ON = os.path.join(ICON_DIR, "list_on_id1.png")
+    ENABLE_DEVICES = os.path.join(ICON_DIR, 'connect_on.png')
+    DISABLE_DEVICES = os.path.join(ICON_DIR, 'connect_off.png')
+
+    CONNECT_MFI_DEVICE_ON = os.path.join(ICON_DIR, "mfi_on.png")
+    CONNECT_MFI_DEVICE_OFF = os.path.join(ICON_DIR, "mfi_off.png")
+
+    SETTINGS_OFF = os.path.join(ICON_DIR, "setting_off.png")
+    SETTINGS_ON = os.path.join(ICON_DIR, "setting_on.png")
 
     STOP_ICON = os.path.join(ICON_DIR, "stop.png")
     HOME_ICON = os.path.join(ICON_DIR, "home.png")
